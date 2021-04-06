@@ -1,0 +1,28 @@
+{
+  "name": "hcmus.21.ecus-04-ec",
+  "version": "1.0.0",
+  "description": "backend of delivery hub",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lvminh/HCMUS.21.ECUS-04-BE.git"
+  },
+  "keywords": [
+    "BeChoice"
+  ],
+  "author": "Phan Xuan Bao",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lvminh/HCMUS.21.ECUS-04-BE/issues"
+  },
+  "homepage": "https://github.com/lvminh/HCMUS.21.ECUS-04-BE#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  },
+  "dependencies": {
+    "mongodb": "^3.6.5"
+  }
+}
