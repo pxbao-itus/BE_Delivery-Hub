@@ -4,7 +4,8 @@
   "description": "backend of delivery hub",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --inspect index.js"
   },
   "repository": {
     "type": "git",
@@ -23,6 +24,12 @@
     "nodemon": "^2.0.7"
   },
   "dependencies": {
-    "mongodb": "^3.6.5"
+    "cookie-parser": "^1.4.5",
+    "dotenv": "^9.0.2",
+    "express": "^4.17.1",
+    "md5": "^2.3.0",
+    "mongodb": "^3.6.5",
+    "mongoose": "^5.12.10",
+    "path": "^0.12.7"
   }
 }
