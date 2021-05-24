@@ -26,11 +26,13 @@
   },
   "dependencies": {
     "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
     "dotenv": "^9.0.2",
     "express": "^4.17.1",
     "md5": "^2.3.0",
     "mongodb": "^3.6.5",
     "mongoose": "^5.12.10",
+    "morgan": "^1.10.0",
     "path": "^0.12.7"
   }
 }
