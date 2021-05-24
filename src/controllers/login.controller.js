@@ -1,4 +1,4 @@
-const Account = require('../models/account.model/login.model');
+const Account = require('../models/account.model/account.model');
 const md5 = require('md5');
 const express = require('express');
 const mongoose = require('mongoose');
