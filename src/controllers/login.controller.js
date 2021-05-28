@@ -18,15 +18,16 @@ const postLogin = async (req, res, next) =>{
             return res.status(401).json({status : 'Failed'});
         }
         else{
+            res.cookie('user-cookie',account.id,{
+                signed:true,
+                httpOnly : true
+            });
             return res.status(200).json({status : 'Success'});
         }
-
     }catch(error){
         return res.status(401).json({message : 'Login failed. Please try again!'});
     }
-    
 }
-
 module.exports = {
     postLogin
 
