@@ -11,7 +11,7 @@ const morgan = require('morgan');
 // Import module local file
 const loginAPI = require('./src/apis/login.api');
 const accountAPI = require('./src/apis/account.api');
-
+const addressAPI = require('./src/apis/address.api');
 // Set port
 const app = express();
 const normalizePort = (port) => parseInt(port, 10);
@@ -44,7 +44,7 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({extended : true}));
 app.use(cookieParser(process.env.SESSION_SECRET));
-
+app.use(morgan('dev'));
 // Connect to MongoDB with mongoose 
 const mongoose = require('mongoose');
 const MONGO_URL = process.env.MONGO_URL ? process.env.MONGO_URL : process.env.MONGO_URL_LOCAL;
@@ -62,3 +62,6 @@ app.use('/auth/login', loginAPI);
 
 // API chuc nang SignUp
 app.use('/signup',accountAPI);
+
+// API chuc nang lay dia chi
+app.use('/address',addressAPI);
