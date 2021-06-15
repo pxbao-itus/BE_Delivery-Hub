@@ -24,8 +24,12 @@ const postLogin = async (req, res, next) =>{
     }catch(error){
         return res.status(401).json({message : 'Login failed. Please try again!'});
     }
-    
 }
+
+// Kiểm tra trạng thái đăng nhập
+const keepLogin = async (req, res, next) => {
+    const userCookie = req.body.userCookie;
+    const data = Account.sign
 
 module.exports = {
     postLogin
