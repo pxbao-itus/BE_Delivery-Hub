@@ -12,6 +12,8 @@ const morgan = require('morgan');
 const loginAPI = require('./src/apis/login.api');
 const accountAPI = require('./src/apis/account.api');
 const addressAPI = require('./src/apis/address.api');
+const userAPI = require('./src/apis/user.api');
+
 // Set port
 const app = express();
 const normalizePort = (port) => parseInt(port, 10);
@@ -65,3 +67,6 @@ app.use('/signup',accountAPI);
 
 // API chuc nang lay dia chi
 app.use('/address',addressAPI);
+
+// API chuc nang lien quan customer
+app.use('/customer',userAPI);
