@@ -13,7 +13,7 @@ const loginAPI = require('./src/apis/login.api');
 const accountAPI = require('./src/apis/account.api');
 const addressAPI = require('./src/apis/address.api');
 const userAPI = require('./src/apis/user.api');
-
+const orderAPI = require('./src/apis/order.api');
 // Set port
 const app = express();
 const normalizePort = (port) => parseInt(port, 10);
@@ -70,3 +70,6 @@ app.use('/address',addressAPI);
 
 // API chuc nang lien quan customer
 app.use('/customer',userAPI);
+
+// API chuc nang lien quan order
+app.use('/customer/order', orderAPI);
