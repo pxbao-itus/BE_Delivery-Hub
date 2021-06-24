@@ -22,7 +22,7 @@ const postLogin = async (req, res, next) =>{
                 signed:true,
                 httpOnly : true
             });
-            return res.status(200).json({status : 'Success'});
+            return res.status(200).json({status : 'Success', id: account.id});
         }
     }catch(error){
         return res.status(401).json({message : 'Login failed. Please try again!'});
