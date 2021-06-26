@@ -1,12 +1,13 @@
 const inCustomerModel = require('../models/account.model/individual_customer.user.model');
 const Account = require('../models/account.model/account.model');
 const saleBusinessModel = require('../models/account.model/salebusiness.user.model');
-
+const deliveryBusinessModel = require('../models/account.model/deliverybusiness.user.model');
 // control: get infor user
 const getIndividualCustomer = async (req, res,next) => {
     try {
       const user = await Account.findOne({_id: req.body.id});
-      switch(user.type.parseInt()){        
+      console.log(user.type);
+      switch(user.type){        
         case 1: { // Thông tin của người dùng là khách hàng cá nhân
           const inCustomer = await inCustomerModel.findOne({_id : req.body.id});
           if (inCustomer){
@@ -18,20 +19,28 @@ const getIndividualCustomer = async (req, res,next) => {
         }
         case 2: { // Thông tin của người dùng là doanh nghiệp bán hàng
           const saleBusiness = await saleBusinessModel.findOne({_id : req.body.id});
-        if (saleBusiness){
-          return res.status(200).json(saleBusiness);
-        } else {
-          return res.status(409).json({message: "Tài khoản chưa có thông tin"});
-        } 
+          if (saleBusiness){
+            return res.status(200).json(saleBusiness);
+          } else {
+            return res.status(409).json({message: "Tài khoản chưa có thông tin"});
+          }  
         break;
         }
         case 3: { // Thông tin của người dùng là đơn vị cung cấp dịch vụ vận chuyển
+          const deliverybusiness = await deliveryBusinessModel.findOne({_id : req.body.id});
+          if (deliverybusiness){
+            return res.status(200).json(deliverybusiness);
+          } else {
+            return res.status(409).json({message: "Tài khoản chưa có thông tin"});
+          }  
           break;
         }
         case 4: { // Thông tin của người dùng là admin
           break;
         }
-        default: break;
+        default: 
+          throw 'exception';
+          break;
       }    
     } catch (error) {
        return res.status(409).json({ message: "Lấy thông tin không thành công"});
