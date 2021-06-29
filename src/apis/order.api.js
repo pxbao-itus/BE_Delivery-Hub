@@ -6,6 +6,6 @@ orderApi.get('/list', orderController.getOrderList);
 
 orderApi.post('/create',orderController.createOrder);
 
-orderApi.get('/detail', orderController.getOrderDetail);
+orderApi.post('/detail', orderController.getOrderDetail);
 
 module.exports = orderApi;

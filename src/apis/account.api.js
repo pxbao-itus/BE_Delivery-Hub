@@ -3,6 +3,6 @@ const accountController = require('../controllers/account.controller');
 
 accountAPI.post('/',accountController.postSignUp);
 
-accountAPI.put('/changepassword', accountController.modifyPassword);
+accountAPI.post('/changepassword', accountController.modifyPassword);
 
 module.exports = accountAPI;
