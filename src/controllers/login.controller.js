@@ -7,6 +7,7 @@ const postLogin = async (req, res, next) =>{
     try{
         const email = req.body.email;
         const password =req.body.password;
+
         const account = await Account.findOne({email});
         if(!account){
             // email doesn't exist!

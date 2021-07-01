@@ -15,9 +15,9 @@ const getProvince = async (req, res, next) => {
 // Lấy danh sách quận/huyện theo tỉnh 
 const getDistrict = async (req, res, next) => {
   try {
-    const id = req.query;
+    const id = req.query.id
  
-    const data = await AddressModel.findOne(id).select('districts -_id');
+    const data = await AddressModel.findOne({id}).select('districts -_id');
     if (data) {
       const list = data.districts.map((item) => {
         return { id: item.id, name: item.name };

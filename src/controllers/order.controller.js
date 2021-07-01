@@ -1,14 +1,24 @@
-const OrderModel = require('../models/order.model');
-const DetailOrderModel = require('../models/order.detail.model');
+const OrderModel = require('../models/order.model/individual_customer.order.model');
+const DetailOrderModel = require('../models/order.detail.model/individual_customer.order.detail.model');
 
-// Lấy ra danh sách tất cả các đơn hàng của 1 khách hàng cá nhân
+// Lấy ra danh sách tất cả các đơn hàng 
 const getOrderList = async (req, res, next) => {
     try {
-      const orderList = await OrderModel.find({ customerID: req.body.id });
-      if (orderList) {
-        return res.status(200).json({ list: orderList });
+      const user = await Account.findOne({_id: req.body.id});
+      switch(user.type){
+        case 1: { // Danh sách tất cả đơn hàng của 1 khách hàng cá nhân
+          const orderList = await OrderModel.find({ customerID: req.body.id });
+          if (orderList) {
+            return res.status(200).json({ list: orderList });
+          }
+          return res.status(200).json({ list: [] });
+          break;
+        }
+        case 2: { // Danh sách tất cả đơn hàng của 1 doanh nghiệp bán hàng
+
+        }
       }
-      return res.status(200).json({ list: [] });
+      
     } catch (error) {
       console.error(error);
       return res.status(401).json({ list: [] });

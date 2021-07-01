@@ -5,9 +5,9 @@ const saleBusinessSchema = new Schema({
   _id: String,
   address: String,
   infoOfPresentative :{
-      name: String,
-      phone: String,
-      sex: String,
+      repName: String,
+      repPhone: String,
+
   },
   saleBusinessName: String
 },{versionKey: false});

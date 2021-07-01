@@ -49,8 +49,11 @@ app.use(cookieParser(process.env.SESSION_SECRET));
 app.use(morgan('dev'));
 // Connect to MongoDB with mongoose 
 const mongoose = require('mongoose');
-const MONGO_URL = process.env.MONGO_URL ? process.env.MONGO_URL : process.env.MONGO_URL_LOCAL;
-mongoose.connect(MONGO_URL);
+//const MONGO_URL = process.env.MONGO_URL ? process.env.MONGO_URL : process.env.MONGO_URL_LOCAL;
+mongoose.connect(process.env.MONGO_URL || process.env.MONGO_URL_LOCAL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+});
 
 
 // Listening ...... 
