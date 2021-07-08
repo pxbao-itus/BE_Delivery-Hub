@@ -3,10 +3,12 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 // chi tiết đơn hàng
-const detailOrderSchema = new Schema({
-    _id : String, 
+const detailSaleOrderSchema = new Schema({
+    _id : Number,
+    saleBusiness_OrdersID: Number,
+    categoryOfProductsID: Number
 },{versionKey: false}) ;
 
-const DetailOrderModel = mongoose.model('detaiOrder', detailOrderSchema, 'Individual_OrderDetail');
+const DetailOrderModel = mongoose.model('BusinessDetaiOrder', detailSaleOrderSchema, 'SaleBusiness_OrderDetail');
 
 module.exports = DetailOrderModel;

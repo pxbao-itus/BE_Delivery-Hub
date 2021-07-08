@@ -1,11 +1,10 @@
-const { Double } = require('bson');
+
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 // Đơn hàng
 const inOrderSchema = new Schema({
-    id: String,
-    customerID: String,
+    accountID: Number,
     dateOfOrder: Date,
     km: Number,
     sumOfOrder: Number,
@@ -15,25 +14,25 @@ const inOrderSchema = new Schema({
             province: String,
             district: String,
             ward: String,
-            street: String
+            detail: String
         },
         locationOfDelivery: {
             province: String,
             district: String,
             ward: String,
-            street: String
+            detail: String
         }
     },
     orderStatus: {
         deliveryStatus: Boolean,
         receiveStatus: Boolean,
-        orderStatus: Boolean
     },
+    deliveryBusinessID: Number,
     transportService: String
 },{versionKey: false});
 
 
 
-const OrderModel = mongoose.model('inorder',inOrderSchema,'Individual_Orders');
+const OrderModel = mongoose.model('OrderModel',inOrderSchema,'Individual_Orders');
 
 module.exports = OrderModel;

@@ -1,14 +1,14 @@
-const { Double } = require('bson');
+
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 // chi tiết đơn hàng
 const detailOrderSchema = new Schema({
-    id: String,
+    _id: Number,
     productName: String,
-    individual_OrderID: String,
+    individual_OrderID: Number,
     weight: Number,
-    productTypeID: String
+    productTypeID: Number
 },{versionKey: false}) ;
 
 const DetailOrderModel = mongoose.model('detaiOrder', detailOrderSchema, 'Individual_OrderDetail');
