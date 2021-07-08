@@ -85,7 +85,7 @@ app.use('/order', orderAPI);
 app.use('/admin', adminAPI);
 
 // API cho phan he sale business
-app.use('/product', saleAPI);
+app.use('/sale', saleAPI);
 
 // API cho phan he delivery business
 app.use('/delivery', deliveryAPI);

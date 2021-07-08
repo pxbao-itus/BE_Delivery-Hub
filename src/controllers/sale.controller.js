@@ -3,12 +3,12 @@ const Product = require('../models/order.detail.model/category.model');
 // Them san pham
 const addProduct = async (req, res, next) => {
     try{
-        const product = req.body.product;
-        const idCategory = 1;
+        const product = req.body;
+        var idCategory = 1;
         const listCategory = await Product.find({}).select('_id');
         for(let item of listCategory){
-            idCategory = idCategory < item._id ? item_id : idCategory;
-        }
+            idCategory = idCategory < item._id ? item._id : idCategory;
+        }      
         idCategory++;
         product._id = idCategory;
         const response = await Product.create(product);
@@ -38,7 +38,7 @@ const updateProduct = async (req, res, next) => {
 const getProduct = async (req, res, next) => {
     try{
         const listProduct = await Product.find({ownerID: req.body.ownerID});
-        return res.status(200).json({message: "Success"});
+        return res.status(200).json(listProduct);
     } catch(error) {
         return res.status(400).json({message: "Failed"});
     }
