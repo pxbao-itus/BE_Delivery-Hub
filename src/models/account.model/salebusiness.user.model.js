@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const saleBusinessSchema = new Schema({
-  _id: String,
+  accountID: Number,
   address: String,
   infoOfPresentative :{
       repName: String,

@@ -5,47 +5,39 @@ const deliveryBusinessModel = require('../models/account.model/deliverybusiness.
 // control: get infor user
 const getUserInformation = async (req, res,next) => {
     try {
-      console.log(req.body.id);
-      const user = await Account.findOne({_id: req.body.id});
-      //console.log(user.type);
+      const user = await Account.findOne({id: req.body.id});
+      console.log(user.type);
       
-      switch(user.type){        
-        case 1: { // Thông tin của người dùng là khách hàng cá nhân
-          const inCustomer = await inCustomerModel.findOne({_id : req.body.id});
-          if (inCustomer){
-            return res.status(200).json(inCustomer);
-          } else {
-            return res.status(409).json({message: "Tài khoản chưa có thông tin"});
-          } 
-          break;
-        }
-        case 2: { // Thông tin của người dùng là doanh nghiệp bán hàng
-          const saleBusiness = await saleBusinessModel.findOne({_id : req.body.id});
-          if (saleBusiness){
-            return res.status(200).json(saleBusiness);
-          } else {
-            return res.status(409).json({message: "Tài khoản chưa có thông tin"});
-          }  
-        break;
-        }
-        case 3: { // Thông tin của người dùng là đơn vị cung cấp dịch vụ vận chuyển
-          const deliverybusiness = await deliveryBusinessModel.findOne({_id : req.body.id});
-          if (deliverybusiness){
-            return res.status(200).json(deliverybusiness);
-          } else {
-            return res.status(409).json({message: "Tài khoản chưa có thông tin"});
-          }  
-          break;
-        }
-        case 4: { // Thông tin của người dùng là admin
-          break;
-        }
-        default: 
-          throw 'exception';
-          break;
-      }    
+      if(user.type === "Individual")       
+        { // Thông tin của người dùng là khách hàng cá nhân
+        const inCustomer = await inCustomerModel.findOne({accountID : req.body.id});
+        if (inCustomer){
+          return res.status(200).json(inCustomer);
+        } else {
+          return res.status(409).json({message: "Account does not have information"});
+        } 
+      }
+      if(user.type === "Sale")
+      { // Thông tin của người dùng là doanh nghiệp bán hàng
+        const saleBusiness = await saleBusinessModel.findOne({accountID: req.body.id});
+        if (saleBusiness){
+          return res.status(200).json(saleBusiness);
+        } else {
+          return res.status(409).json({message: "Account does not have information"});
+        }  
+      }
+      if(user.type === "Delivery")
+      { // Thông tin của người dùng là đơn vị cung cấp dịch vụ vận chuyển
+        const deliverybusiness = await deliveryBusinessModel.findOne({accountID : req.body.id});
+        if (deliverybusiness){
+          return res.status(200).json(deliverybusiness);
+        } else {
+          return res.status(409).json({message: "Account does not have information"});
+        }  
+      }
+         
     } catch (error) {
-       return res.status(409).json({ message: "Lấy thông tin không thành công"});
+       return res.status(409).json({ message: "Faild"});
     }
 
 }
