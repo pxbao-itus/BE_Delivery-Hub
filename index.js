@@ -14,6 +14,8 @@ const accountAPI = require('./src/apis/account.api');
 const addressAPI = require('./src/apis/address.api');
 const userAPI = require('./src/apis/user.api');
 const orderAPI = require('./src/apis/order.api');
+const adminAPI = require('./src/apis/admin.api');
+
 // Set port
 const app = express();
 const normalizePort = (port) => parseInt(port, 10);
@@ -78,7 +80,7 @@ app.use('/user',userAPI);
 app.use('/order', orderAPI);
 
 // API cho phan he Admin
-//app.use('/admin', adminAPI);
+app.use('/admin', adminAPI);
 
 // API cho phan he sale business
 //app.use('/product', saleBusinessAPI);

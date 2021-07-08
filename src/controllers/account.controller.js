@@ -60,8 +60,19 @@ const modifyPassword = async (req, res, next) => {
     }
 }
 
-
+const updateAccountStatus = async (req, res, next) => {
+    try {
+        const response = await Accounts.updateOne({id: req.body.accountID}, {
+            lock: req.body.lock
+        })
+        return res.status(200).json({message: "Success"});
+    } catch (error) {
+        return res.status(400).json({message: "Failed"});
+    }
+    
+}
 module.exports = {
     postSignUp,
     modifyPassword,
+    updateAccountStatus
 }

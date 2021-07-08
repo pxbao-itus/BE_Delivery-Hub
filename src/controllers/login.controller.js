@@ -13,6 +13,9 @@ const postLogin = async (req, res, next) =>{
             // email doesn't exist!
             return res.status(406).json({status : 'Failed'});
         }
+        if(account.lock) {
+            return res.status(400).json({message: "account locked"});
+        }
         const checkPassword = await md5(password) === account.password;
         if(!checkPassword){
             // password incorrect!
