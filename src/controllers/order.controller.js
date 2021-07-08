@@ -6,6 +6,7 @@ const Account = require('../models/account.model/account.model');
 const CategoryModel = require('../models/order.detail.model/category.model');
 const ProductTypeModel = require('../models/order.detail.model/product_type.model');
 const OrderModel = require('../models/order.model/individual_customer.order.model');
+const DeliveryModel = require('../models/account.model/deliverybusiness.user.model');
 
 // Lấy ra danh sách tất cả các đơn hàng 
 const getOrderList = async (req, res, next) => {
@@ -172,11 +173,33 @@ const updateStatus = async (req, res, next) => {
       return res.status(400).json({message: "Failed"});
   }
 }
+
+// Lay danh sach cac don vi  van chuyen
+const getDelivery = async (req, res, next) => {
+  try{
+    const response = await DeliveryModel.find({}).select('accountID deliveryBusinessName -_id');
+    return res.status(200).json(response);
+  }catch(error) {
+    return res.status(400).json({message: "Failed"});
+  }
+}
+
+// Lay danh sach loai san pham khach hang co the gui
+const getProductType = async (req, res, next) => {
+  try{
+    const response = await ProductTypeModel.find({});
+    return res.status(200).json(response);
+  }catch(error) {
+    return res.status(400).json({message: "Failed"});
+  }
+}
 module.exports = {
     getOrderList,
     createOrder,
     getOrderDetail,
-    updateStatus
+    updateStatus,
+    getDelivery,
+    getProductType
 }
 
 
