@@ -15,6 +15,8 @@ const addressAPI = require('./src/apis/address.api');
 const userAPI = require('./src/apis/user.api');
 const orderAPI = require('./src/apis/order.api');
 const adminAPI = require('./src/apis/admin.api');
+const saleAPI = require('./src/apis/sale.api');
+
 
 // Set port
 const app = express();
@@ -83,7 +85,7 @@ app.use('/order', orderAPI);
 app.use('/admin', adminAPI);
 
 // API cho phan he sale business
-//app.use('/product', saleBusinessAPI);
+app.use('/product', saleAPI);
 
 // API cho phan he delivery business
 //app.use('/delivery', deliveryBusinessAPI);
