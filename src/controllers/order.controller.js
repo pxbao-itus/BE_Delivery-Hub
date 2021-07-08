@@ -5,6 +5,7 @@ const saleDetailOrderModel = require('../models/order.detail.model/sale_business
 const Account = require('../models/account.model/account.model');
 const CategoryModel = require('../models/order.detail.model/category.model');
 const ProductTypeModel = require('../models/order.detail.model/product_type.model');
+const OrderModel = require('../models/order.model/individual_customer.order.model');
 
 // Lấy ra danh sách tất cả các đơn hàng 
 const getOrderList = async (req, res, next) => {
@@ -42,6 +43,8 @@ const getOrderList = async (req, res, next) => {
 const createOrder = async (req, res, next) => {
   try{
     const order = req.body.order;
+    order.orderStatus.deliveryStatus = false;
+    order.orderStatus.receiveStatus = false;
     var detail = [];
     if(req.body.detail) {
       detail = req.body.detail;
@@ -143,10 +146,37 @@ const getOrderDetail = async (req, res, next) => {
   }
 }
 
+// Thay doi dang trai cua 1 don hang
+const updateStatus = async (req, res, next) => {
+  try{
+    const user = await Account.findOne({id: req.body.accountID});
+    if(user.type === "Individual") {
+      const response = await OrderModel.updateOne({_id: req.body.orderID}, {
+         orderStatus: {
+           deliveryStatus: req.body.orderStatus.deliveryStatus,
+           receiveStatus: req.body.orderStatus.receiveStatus
+         }
+        })
+        return res.status(200).json({message: "Success"});
+    }
+    if(user.type === "Sale") {
+      const response = await saleOrderModel.updateOne({_id: req.body.orderID}, {
+         orderStatus: {
+           deliveryStatus: req.body.orderStatus.deliveryStatus,
+           receiveStatus: req.body.orderStatus.receiveStatus
+         }
+        })
+        return res.status(200).json({message: "Success"});
+    }    
+  } catch(error) {
+      return res.status(400).json({message: "Failed"});
+  }
+}
 module.exports = {
     getOrderList,
     createOrder,
     getOrderDetail,
+    updateStatus
 }
 
 

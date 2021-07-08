@@ -8,4 +8,6 @@ orderApi.post('/create',orderController.createOrder);
 
 orderApi.post('/detail', orderController.getOrderDetail);
 
+orderApi.post('/update', orderController.updateStatus);
+
 module.exports = orderApi;
