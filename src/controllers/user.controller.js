@@ -45,7 +45,7 @@ const putUpdateIndividualCustomer = async (req, res, next) => {
 
     try {
       const user = await Account.findOne({id: req.body.id});
-      // Cập nhật thông tin của người dùng cá nhân
+      
       if(user.type === "Individual")    
       { 
         const response = await inCustomerModel.updateOne({ accountID: req.body.id }, {

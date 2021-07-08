@@ -4,9 +4,9 @@ const addressController = require('../controllers/address.controller');
 
 addressAPI.get('/province',addressController.getProvince);
  
-addressAPI.get('/district',addressController.getDistrict);
+addressAPI.post('/district',addressController.getDistrict);
 
-addressAPI.get('/ward', addressController.getStreetWard);
+addressAPI.post('/ward', addressController.getStreetWard);
 
 
 module.exports = addressAPI;
