@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 
 // Đơn hàng
 const saleOrderSchema = new Schema({
+    _id:Number,
     accountID: Number,
     dateOfOrder: Date,
     km: Number,

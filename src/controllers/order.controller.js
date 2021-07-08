@@ -5,7 +5,7 @@ const saleDetailOrderModel = require('../models/order.detail.model/sale_business
 const Account = require('../models/account.model/account.model');
 const CategoryModel = require('../models/order.detail.model/category.model');
 const ProductTypeModel = require('../models/order.detail.model/product_type.model');
-const { response } = require('express');
+
 // Lấy ra danh sách tất cả các đơn hàng 
 const getOrderList = async (req, res, next) => {
     try {
@@ -42,29 +42,65 @@ const getOrderList = async (req, res, next) => {
 const createOrder = async (req, res, next) => {
   try{
     const order = req.body.order;
-    var detail = null;
+    var detail = [];
     if(req.body.detail) {
       detail = req.body.detail;
     }
-    const user = await Account.findOne({id: req.body.id});
+    const user = await Account.findOne({id: order.accountID});
+
+    // Tao don hang ca nhan
     if(user.type === "Individual") {
+      const listOrder = await individualOrderModel.find({}).select('_id');
+      var orderID = 1;
+      for(let element of listOrder){
+        if(element._id){
+          orderID = orderID < parseInt(element._id) ? parseInt(element._id) : orderID;
+        }          
+      }
+      orderID++;
+      order._id = orderID;
       const response = await individualOrderModel.create(order);
-      const orderCreated = await individualOrderModel.findOne(order);
-      console.log(orderCreated._id);
-      for(const item of detail){
    
-        item.individual_OrderID = orderCreated._id;
+      for(const item of detail){
+        const listDetail = await DetailOrderModel.find({}).select('_id');
+        var id = 1;
+        for(let element of listDetail){
+          if(element._id){
+              id = id < parseInt(element._id) ? parseInt(element._id) : id;
+          }         
+        }
+        id++;
+        item._id = id;
+        item.individual_OrderID = order._id;
         const result = await DetailOrderModel.create(item);
       }
       return res.status(200).json({status: "success"});
     }
+
+    // Tao don hang sale business
     if(user.type === "Sale") {
+      const listOrder = await saleOrderModel.find({}).select('_id');
+      var orderID2 = 1;
+      for(let element of listOrder){
+        if(element._id){
+          orderID2 = orderID2 < parseInt(element._id) ? parseInt(element._id) : orderID2;
+        }          
+      }
+      orderID2++;
+      order._id = orderID2;
       const response = await saleOrderModel.create(order);
-      const orderCreated = await saleOrderModel.findOne(order);
-      console.log(orderCreated._id);
-      for(const item of detail){
    
-        item.saleBusiness_OrdersID = orderCreated._id;
+      for(const item of detail){
+        const listDetail = await saleDetailOrderModel.find({}).select('_id');
+        var id2 = 1;
+        for(let element of listDetail){
+          if(element._id){
+              id2 = id2 < parseInt(element._id) ? parseInt(element._id) : id2;
+          }         
+        }
+        id2++;
+        item._id = id2;
+        item.saleBusiness_OrdersID = orderID2;
         const result = await saleDetailOrderModel.create(item);
       }
       return res.status(200).json({status: "success"});
