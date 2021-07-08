@@ -17,7 +17,7 @@ const postSignUp = async (req,res,next)=>{
         }
         password = md5(password);
         var id = 1;
-        const listAccount = await Accounts.find({}).select('id');
+        const listAccount = await Accounts.find({}).select('id -_id');
         console.log(listAccount);
         for(let element of listAccount){
             if(element.id){
@@ -53,7 +53,7 @@ const modifyPassword = async (req, res, next) => {
             const reponse = await Accounts.updateOne({email: email}, { password: oldPassword});
             return res.status(200).json({message: "success"});
         } else {
-            return res.status(400).json({message: "Mật khẩu cũ không chính xác"});
+            return res.status(400).json({message: "failed"});
         } 
     } catch (error) {
         return res.status(400).json({message: "failed"});
