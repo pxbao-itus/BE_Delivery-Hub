@@ -5,9 +5,7 @@ const deliveryBusinessModel = require('../models/account.model/deliverybusiness.
 // control: get infor user
 const getUserInformation = async (req, res,next) => {
     try {
-      const user = await Account.findOne({id: req.body.id});
-      console.log(user.type);
-      
+      const user = await Account.findOne({id: req.body.id});     
       if(user.type === "Individual")       
         { // Thông tin của người dùng là khách hàng cá nhân
         const inCustomer = await inCustomerModel.findOne({accountID : req.body.id});
@@ -44,82 +42,61 @@ const getUserInformation = async (req, res,next) => {
 
 // control: update user
 const putUpdateIndividualCustomer = async (req, res, next) => {
-  console.log(req.body);
-    try {
-      const user = await Account.findOne({_id: req.body.id});
-      switch(user.type){
-        case 1: { // Cập nhật thông tin của người dùng cá nhân
-          const response = await inCustomerModel.updateOne({ _id: req.body.id }, {
-            name: req.body.name, 
-            sex: req.body.sex,
-            dateOfBirth: req.body.dateOfBirth,
-            address: req.body.address,
-            phone: req.body.phone
-          },{upsert: true});
-          if(response) {
-            return res.status(200).json({ status: 'success' });
-          } else {
-            throw "exeption";
-          }  
-          break;
-        }
-        case 2: { // Cập nhật thông tin của người dùng là doanh nghiệp bán hàng
-          const response = await saleBusinessModel.updateOne({ _id: req.body.id }, {
-            address: req.body.address,
-            infoOfPresentative: {
-              name: req.body.infoOfPresentative.name,
-              phone: req.body.infoOfPresentative.phone,
-              sex: req.body.infoOfPresentative.sex
-            },
-            saleBusinessName: req.body.saleBusinessName
-          },{upsert: true});
-          if(response) {
-            return res.status(200).json({ status: 'success' });
-          } else {
-            throw "exeption";
-          }  
-          break;
-        }
-        case 3: { // Cập nhật thông tin của người dùng là đơn vị vận chuyển
-          const response = await deliveryBusinessModel.updateOne({ _id: req.body.id }, {
-            address: req.body.address,
-            infoOfPresentative: {
-              name: req.body.infoOfPresentative.name,
-              phone: req.body.infoOfPresentative.phone,
-              sex: req.body.infoOfPresentative.sex
-            },
-            deliveryBusinessName: req.body.deliveryBusinessName,
-            phone: req.body.phone
-          },{upsert: true});
-          if(response) {
-            return res.status(200).json({ status: 'success' });
-          } else {
-            throw "exeption";
-          }  
-          break;
-        }
-        case 4: { // Cập nhật thông tin của người dùng là admin
 
-        }
-        default: {
-          throw "exeption";
-          break;
-        }
-      }
-        const response = await inCustomerModel.updateOne({ _id: req.body.id }, {
+    try {
+      const user = await Account.findOne({id: req.body.id});
+      // Cập nhật thông tin của người dùng cá nhân
+      if(user.type === "Individual")    
+      { 
+        const response = await inCustomerModel.updateOne({ accountID: req.body.id }, {
           name: req.body.name, 
           sex: req.body.sex,
           dateOfBirth: req.body.dateOfBirth,
           address: req.body.address,
-          phone: req.body.phone
+          phone: req.body.customerPhone
         },{upsert: true});
         if(response) {
-          return res.status(200).json({ status: 'success' });
+          return res.status(200).json({ status: 'Success' });
         } else {
           throw "exeption";
-        }      
+        }  
+      }
+      // Cập nhật thông tin của người dùng là doanh nghiệp bán hàng
+      if(user.type === "Sale")    
+      { 
+        const response = await saleBusinessModel.updateOne({ accountID: req.body.id }, {
+          address: req.body.address,
+          infoOfPresentative: {
+            repName: req.body.inforOfRepresentative.repName,
+            repPhone: req.body.inforOfRepresentative.repPhone,
+          },
+          saleBusinessName: req.body.saleBusinessName
+        },{upsert: true});
+        if(response) {
+          return res.status(200).json({ status: 'Success' });
+        } else {
+          throw "exeption";
+        }  
+      }
+      // Cập nhật thông tin của người dùng là đơn vị vận chuyển
+      if(user.type === "Delivery")    
+      { 
+        const response = await deliveryBusinessModel.updateOne({ accountID: req.body.id }, {
+          address: req.body.address,
+          infoOfPresentative: {
+            repName: req.body.inforOfRepresentative.name,
+            repPhone: req.body.inforOfRepresentative.phone,
+          },
+          deliveryBusinessName: req.body.deliveryBusinessName,
+        },{upsert: true});
+        if(response) {
+          return res.status(200).json({ status: 'Success' });
+        } else {
+          throw "exeption";
+        }  
+      }   
     } catch (error) {
-      return res.status(409).json({ status: 'failed' });
+      return res.status(409).json({ status: 'Failed' });
     }
   };
   
