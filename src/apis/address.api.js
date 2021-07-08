@@ -6,7 +6,7 @@ addressAPI.get('/province',addressController.getProvince);
  
 addressAPI.get('/district',addressController.getDistrict);
 
-addressAPI.get('/street', addressController.getStreetWard);
+addressAPI.get('/ward', addressController.getStreetWard);
 
 
 module.exports = addressAPI;

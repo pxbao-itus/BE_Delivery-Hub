@@ -7,7 +7,7 @@ const postLogin = async (req, res, next) =>{
     try{
         const email = req.body.email;
         const password =req.body.password;
-
+        
         const account = await Account.findOne({email});
         if(!account){
             // email doesn't exist!
@@ -19,10 +19,6 @@ const postLogin = async (req, res, next) =>{
             return res.status(401).json({status : 'Failed'});
         }
         else{
-            res.cookie('user-cookie',account.id,{
-                signed:true,
-                httpOnly : true
-            });
             return res.status(200).json({status : 'Success', id: account.id, type: account.type});
         }
     }catch(error){

@@ -16,7 +16,17 @@ const postSignUp = async (req,res,next)=>{
             return res.status(400).json({status: "Failed"});
         }
         password = md5(password);
+        var id = 1;
+        const listAccount = await Accounts.find({}).select('id');
+        console.log(listAccount);
+        for(let element of listAccount){
+            if(element.id){
+                id = id < parseInt(element.id) ? parseInt(element.id) : id;
+            }          
+        }
+        id++;
         const createAcc = await Accounts.create({
+            id,
             email,
             password,
             type,
@@ -26,7 +36,7 @@ const postSignUp = async (req,res,next)=>{
             return res.status(200).json({status: "success"});
 
     }catch(error){
-        return res.status(400).json({message: "SignUp Failed. Please try again!", error : error});
+        return res.status(400).json({status: "Failed"});
     }
 }
 

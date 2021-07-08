@@ -3,7 +3,7 @@ const userApi = express.Router();
 const userController = require('../controllers/user.controller');
 
 // api: get  user
-userApi.get('/info', userController.getIndividualCustomer);
+userApi.post('/info', userController.getUserInformation);
 // api: update user
 userApi.post('/update', userController.putUpdateIndividualCustomer);
 

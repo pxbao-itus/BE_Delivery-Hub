@@ -65,14 +65,24 @@ app.listen(PORT,()=>{
 // API chuc nang login
 app.use('/auth/login', loginAPI);
 
-// API chuc nang SignUp
+// API chuc nang SignUp, change password
 app.use('/signup',accountAPI);
 
 // API chuc nang lay dia chi
 app.use('/address',addressAPI);
 
-// API chuc nang lien quan customer
-app.use('/customer',userAPI);
+// API chuc nang lien quan user
+app.use('/user',userAPI);
 
 // API chuc nang lien quan order
-app.use('/customer/order', orderAPI);
+app.use('/order', orderAPI);
+
+// API cho phan he Admin
+//app.use('/admin', adminAPI);
+
+// API cho phan he sale business
+//app.use('/product', saleBusinessAPI);
+
+// API cho phan he delivery business
+//app.use('/delivery', deliveryBusinessAPI);
+

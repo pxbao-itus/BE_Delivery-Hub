@@ -2,9 +2,10 @@ const mongoose = require('mongoose');
 const md5 = require('md5');
 
 const accountSchema = new mongoose.Schema({
+    id: Number,
     email : String,
     password : String,
-    type: Number,
+    type: String,
     lock: Boolean
 },{
     versionKey: false

@@ -3,10 +3,12 @@ const Account = require('../models/account.model/account.model');
 const saleBusinessModel = require('../models/account.model/salebusiness.user.model');
 const deliveryBusinessModel = require('../models/account.model/deliverybusiness.user.model');
 // control: get infor user
-const getIndividualCustomer = async (req, res,next) => {
+const getUserInformation = async (req, res,next) => {
     try {
+      console.log(req.body.id);
       const user = await Account.findOne({_id: req.body.id});
       //console.log(user.type);
+      
       switch(user.type){        
         case 1: { // Thông tin của người dùng là khách hàng cá nhân
           const inCustomer = await inCustomerModel.findOne({_id : req.body.id});
@@ -131,6 +133,6 @@ const putUpdateIndividualCustomer = async (req, res, next) => {
   
   //export
   module.exports = {
-    getIndividualCustomer,
+    getUserInformation,
     putUpdateIndividualCustomer,
   };
