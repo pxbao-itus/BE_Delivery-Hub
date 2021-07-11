@@ -128,7 +128,14 @@ const getOrderDetail = async (req, res, next) => {
       const detail = await DetailOrderModel.find({individual_OrderID: orderID});
       for(let item of detail) {
         const productType = await ProductTypeModel.findOne({_id: item.productTypeID});
-        response.push({item, productType});
+        const merge = {};
+        merge.id = item._id;
+        merge.productName = item.productName;
+        merge.weight = item.weight;
+        merge.individual_OrderID = item.individual_OrderID;
+        merge.productTypeName = productType.productTypeName;
+        merge.price = productType.price;      
+        response.push(merge);
       }
       return res.status(200).json(response);
     }
@@ -137,8 +144,15 @@ const getOrderDetail = async (req, res, next) => {
     if(user.type === "Sale") {
       const detail = await saleDetailOrderModel.find({saleBusiness_OrdersID: orderID})
       for(let item of detail){
-        const product = await CategoryModel.findOne({_id: item.categoryOfProductsID});       
-        response.push({item,product});
+        const product = await CategoryModel.findOne({_id: item.categoryOfProductsID}); 
+        const merge = {};
+        merge.saleBusiness_OrdersID = item.saleBusiness_OrdersID;
+        merge.productName = product.productName;
+        merge.quantityInStock = product.quantityInStock;
+        merge.color = product.color;
+        merge.unitPrice = product.unitPrice;
+        merge.size = product.size;
+        response.push(merge);
       }
       return res.status(200).json(response);
     }
